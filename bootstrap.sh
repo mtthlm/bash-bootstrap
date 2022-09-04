@@ -24,11 +24,11 @@ function :println () {
   :printf '%s\n' "$@"
 }
 
-function :sub () {
+function :replace () {
   :println "${1/"$2"/"$3"}"
 }
 
-function :gsub () {
+function :replace:all () {
   :println "${1//"$2"/"$3"}"
 }
 
@@ -67,7 +67,7 @@ function :split () {
 }
 
 function :join () {
-  :gsub "$(:println "${@:2}")" $'\n' "$1"
+  :replace:all "$(:println "${@:2}")" $'\n' "$1"
 }
 
 function :in () {
