@@ -16,12 +16,28 @@ function :vprintf () {
   printf -v "$1" -- "$2" "${@:3}"
 }
 
+function :printfln () {
+  :printf "${1}\n" "${@:2}"
+}
+
+function :vprintfln () {
+  :vprintf "$1" "${2}\n" "${@:3}"
+}
+
 function :print () {
   :printf '%s' "$@"
 }
 
+function :vprint () {
+  :vprintf "$1" '%s' "${@:2}"
+}
+
 function :println () {
-  :printf '%s\n' "$@"
+  :printfln '%s' "$@"
+}
+
+function :vprintln () {
+  :vprintfln "$1" '%s' "${@:2}"
 }
 
 function :replace () {
