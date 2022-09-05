@@ -1,13 +1,5 @@
 # shellcheck shell=bash disable=SC2059
 
-function :define () {
-  IFS=$'\n' read -r -d '' "$@" || true
-}
-
-function :readline () {
-  IFS= read -r "$@"
-}
-
 function :printf () {
   printf -- "$1" "${@:2}"
 }
@@ -38,6 +30,24 @@ function :println () {
 
 function :vprintln () {
   :vprintfln "$1" '%s' "${@:2}"
+}
+
+function :define () {
+  IFS=$'\n' read -r -d '' "$1" || true
+}
+
+function :definef () {
+  :define REPLY
+  :vprintf "$1" "$2" "$REPLY"
+}
+
+function :readline () {
+  IFS= read -r "$1" || [[ "${!1:+"x"}" ]]
+}
+
+function :readlinef () {
+  :readline REPLY || return $?
+  :vprintf "$1" "$2" "$REPLY"
 }
 
 function :replace () {
